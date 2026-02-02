@@ -10,14 +10,14 @@
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/filter.css">
-<link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
-        #map {
-            width: 1127px;
-            height: 882px;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
         }
         </style>
         <title></title>
@@ -38,11 +38,8 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="js/tailDT.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/wNumb.js"></script>
-        <script src="data/GCC_PortDatabase_1.js"></script>
-        <script src="data/marinawaterfront_databasemarinawaterfront_list_2.js"></script>
+        <script src="data/Ports_1.js"></script>
+        <script src="data/MarinaWaterfront_2.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -62,7 +59,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-5.4500402980177824,5.73832571997729],[60.82195010174024,90.46104071966795]]);
+        }).fitBounds([[4.209820754890593,9.217807023481043],[56.75593016427321,93.94052202317171]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -158,7 +155,7 @@
         });
         layer_Googlesatellite_0;
         map.addLayer(layer_Googlesatellite_0);
-        function pop_GCC_PortDatabase_1(feature, layer) {
+        function pop_Ports_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -202,7 +199,7 @@
                     </tr>\
                     <tr>\
                         <th scope="row">Main Cargo Types</th>\
-                        <td class="visible-with-data" id="Main Cargo Types">' + (feature.properties['Main Cargo Types'] !== null ? autolinker.link(String(feature.properties['Main Cargo Types']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Main Cargo Types'] !== null ? autolinker.link(String(feature.properties['Main Cargo Types']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Operator</th>\
@@ -220,11 +217,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_GCC_PortDatabase_1_0(feature) {
-            switch(String(feature.properties['Existing'])) {
-                case 'True':
-                    return {
-                pane: 'pane_GCC_PortDatabase_1',
+        function style_Ports_1_0() {
+            return {
+                pane: 'pane_Ports_1',
                 shape: 'diamond',
                 radius: 8.8,
                 opacity: 1,
@@ -238,47 +233,28 @@
                 fillColor: 'rgba(219,30,42,1.0)',
                 interactive: true,
             }
-                    break;
-                default:
-                    return {
-                pane: 'pane_GCC_PortDatabase_1',
-                shape: 'diamond',
-                radius: 8.8,
-                opacity: 1,
-                color: 'rgba(61,128,53,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(84,176,74,1.0)',
-                interactive: true,
-            }
-                    break;
-            }
         }
-        map.createPane('pane_GCC_PortDatabase_1');
-        map.getPane('pane_GCC_PortDatabase_1').style.zIndex = 401;
-        map.getPane('pane_GCC_PortDatabase_1').style['mix-blend-mode'] = 'normal';
-        var layer_GCC_PortDatabase_1 = new L.geoJson(json_GCC_PortDatabase_1, {
+        map.createPane('pane_Ports_1');
+        map.getPane('pane_Ports_1').style.zIndex = 401;
+        map.getPane('pane_Ports_1').style['mix-blend-mode'] = 'normal';
+        var layer_Ports_1 = new L.geoJson(json_Ports_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_GCC_PortDatabase_1',
-            layerName: 'layer_GCC_PortDatabase_1',
-            pane: 'pane_GCC_PortDatabase_1',
-            onEachFeature: pop_GCC_PortDatabase_1,
+            dataVar: 'json_Ports_1',
+            layerName: 'layer_Ports_1',
+            pane: 'pane_Ports_1',
+            onEachFeature: pop_Ports_1,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_GCC_PortDatabase_1_0(feature));
+                return L.shapeMarker(latlng, style_Ports_1_0(feature));
             },
         });
-        bounds_group.addLayer(layer_GCC_PortDatabase_1);
-        map.addLayer(layer_GCC_PortDatabase_1);
-        function pop_marinawaterfront_databasemarinawaterfront_list_2(feature, layer) {
+        bounds_group.addLayer(layer_Ports_1);
+        map.addLayer(layer_Ports_1);
+        function pop_MarinaWaterfront_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -340,9 +316,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_marinawaterfront_databasemarinawaterfront_list_2_0() {
+        function style_MarinaWaterfront_2_0() {
             return {
-                pane: 'pane_marinawaterfront_databasemarinawaterfront_list_2',
+                pane: 'pane_MarinaWaterfront_2',
                 radius: 8.0,
                 opacity: 1,
                 color: 'rgba(179,92,21,1.0)',
@@ -356,29 +332,29 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_marinawaterfront_databasemarinawaterfront_list_2');
-        map.getPane('pane_marinawaterfront_databasemarinawaterfront_list_2').style.zIndex = 402;
-        map.getPane('pane_marinawaterfront_databasemarinawaterfront_list_2').style['mix-blend-mode'] = 'normal';
-        var layer_marinawaterfront_databasemarinawaterfront_list_2 = new L.geoJson(json_marinawaterfront_databasemarinawaterfront_list_2, {
+        map.createPane('pane_MarinaWaterfront_2');
+        map.getPane('pane_MarinaWaterfront_2').style.zIndex = 402;
+        map.getPane('pane_MarinaWaterfront_2').style['mix-blend-mode'] = 'normal';
+        var layer_MarinaWaterfront_2 = new L.geoJson(json_MarinaWaterfront_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_marinawaterfront_databasemarinawaterfront_list_2',
-            layerName: 'layer_marinawaterfront_databasemarinawaterfront_list_2',
-            pane: 'pane_marinawaterfront_databasemarinawaterfront_list_2',
-            onEachFeature: pop_marinawaterfront_databasemarinawaterfront_list_2,
+            dataVar: 'json_MarinaWaterfront_2',
+            layerName: 'layer_MarinaWaterfront_2',
+            pane: 'pane_MarinaWaterfront_2',
+            onEachFeature: pop_MarinaWaterfront_2,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_marinawaterfront_databasemarinawaterfront_list_2_0(feature));
+                return L.circleMarker(latlng, style_MarinaWaterfront_2_0(feature));
             },
         });
-        bounds_group.addLayer(layer_marinawaterfront_databasemarinawaterfront_list_2);
-        map.addLayer(layer_marinawaterfront_databasemarinawaterfront_list_2);
+        bounds_group.addLayer(layer_MarinaWaterfront_2);
+        map.addLayer(layer_MarinaWaterfront_2);
         var overlaysTree = [
-            {label: '<img src="legend/marinawaterfront_databasemarinawaterfront_list_2.png" /> marinawaterfront_database — marinawaterfront_list', layer: layer_marinawaterfront_databasemarinawaterfront_list_2},
-            {label: 'GCC_PortDatabase<br /><table><tr><td style="text-align: center;"><img src="legend/GCC_PortDatabase_1_true0.png" /></td><td>true</td></tr><tr><td style="text-align: center;"><img src="legend/GCC_PortDatabase_1_1.png" /></td><td></td></tr></table>', layer: layer_GCC_PortDatabase_1},
+            {label: '<img src="legend/MarinaWaterfront_2.png" /> Marina&Waterfront', layer: layer_MarinaWaterfront_2},
+            {label: '<img src="legend/Ports_1.png" /> Ports', layer: layer_Ports_1},
             {label: "Google satellite", layer: layer_Googlesatellite_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -391,173 +367,6 @@
         });
         lay.addTo(map);
         setBounds();
-        var mapDiv = document.getElementById('map');
-        var row = document.createElement('div');
-        row.className="row";
-        row.id="all";
-        row.style.height = "100%";
-        var col1 = document.createElement('div');
-        col1.className="col9";
-        col1.id = "mapWindow";
-        col1.style.height = "99%";
-        col1.style.width = "80%";
-        col1.style.display = "inline-block";
-        var col2 = document.createElement('div');
-        col2.className="col3";
-        col2.id = "menu";
-        col2.style.display = "inline-block";
-        mapDiv.parentNode.insertBefore(row, mapDiv);
-        document.getElementById("all").appendChild(col1);
-        document.getElementById("all").appendChild(col2);
-        col1.appendChild(mapDiv)
-        var Filters = {"Operator": "str"};
-        function filterFunc() {
-          map.eachLayer(function(lyr){
-          if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
-            try{
-              for (key in Filters){
-                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
-                if (Filters[key] == "str" || Filters[key] == "bool"){
-                  var selection = [];
-                  var options = document.getElementById("sel_" + keyS).options
-                  for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
-                  }
-                    try{
-                      if (key in features[0].properties){
-                        for (i = features.length - 1;
-                          i >= 0; --i){
-                          if (selection.indexOf(
-                          features[i].properties[key])<0
-                          && selection.length>0) {
-                          features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                  }
-                }
-                if (Filters[key] == "int"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (parseInt(features[i].properties[key])
-                          < sliderVals[0]
-                          || parseInt(features[i].properties[key])
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "real"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (features[i].properties[key]
-                          < sliderVals[0]
-                          || features[i].properties[key]
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
-              }
-            } catch(err){
-            }
-          this[lyr["options"]["layerName"]].clearLayers();
-          this[lyr["options"]["layerName"]].addData(features);
-          }
-          })
-        }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_Operator = document.createElement('div');
-            div_Operator.id = "div_Operator";
-            div_Operator.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Operator);
-            sel_Operator = document.createElement('select');
-            sel_Operator.multiple = true;
-            sel_Operator.size = 10;
-            sel_Operator.id = "sel_Operator";
-            var Operator_options_str = "<option value='' unselected></option>";
-            sel_Operator.onchange = function(){filterFunc()};
-            Operator_options_str  += '<option value="APM Terminals Bahrain">APM Terminals Bahrain</option>';
-            Operator_options_str  += '<option value="Abu Dhabi Ports">Abu Dhabi Ports</option>';
-            Operator_options_str  += '<option value="Bahrain Port Authority">Bahrain Port Authority</option>';
-            Operator_options_str  += '<option value="CCIS Network partners">CCIS Network partners</option>';
-            Operator_options_str  += '<option value="Cosco Shipping / PSS">Cosco Shipping / PSS</option>';
-            Operator_options_str  += '<option value="DP World">DP World</option>';
-            Operator_options_str  += '<option value="Fujairah Port Authority">Fujairah Port Authority</option>';
-            Operator_options_str  += '<option value="Gulftainer">Gulftainer</option>';
-            Operator_options_str  += '<option value="King Abdullah Port Co / DP World">King Abdullah Port Co / DP World</option>';
-            Operator_options_str  += '<option value="Kuwait Ports Authority">Kuwait Ports Authority</option>';
-            Operator_options_str  += '<option value="Mawani">Mawani</option>';
-            Operator_options_str  += '<option value="Mawani Qatar">Mawani Qatar</option>';
-            Operator_options_str  += '<option value="Medlog / GALDP">Medlog / GALDP</option>';
-            Operator_options_str  += '<option value="Medlog / Logistics partners">Medlog / Logistics partners</option>';
-            Operator_options_str  += '<option value="Port Services Corporation SAOG">Port Services Corporation SAOG</option>';
-            Operator_options_str  += '<option value="Qassim Municipality / Logistics Operators">Qassim Municipality / Logistics Operators</option>';
-            Operator_options_str  += '<option value="QatarEnergy / RLIC">QatarEnergy / RLIC</option>';
-            Operator_options_str  += '<option value="Salalah Port/APM">Salalah Port/APM</option>';
-            Operator_options_str  += '<option value="Saudi Global Ports (SGP)">Saudi Global Ports (SGP)</option>';
-            Operator_options_str  += '<option value="Saudi Global Ports (SGP) Riyadh">Saudi Global Ports (SGP) Riyadh</option>';
-            Operator_options_str  += '<option value="Saudi Ports Authority / IPS / SGP">Saudi Ports Authority / IPS / SGP</option>';
-            Operator_options_str  += '<option value="Saudi Ports Authority / RSGT">Saudi Ports Authority / RSGT</option>';
-            Operator_options_str  += '<option value="Saudi Ports Authority / RSGT & DP World">Saudi Ports Authority / RSGT & DP World</option>';
-            Operator_options_str  += '<option value="Saudi Ports Authority / SGP">Saudi Ports Authority / SGP</option>';
-            Operator_options_str  += '<option value="Saudi logistics developers / public">Saudi logistics developers / public</option>';
-            Operator_options_str  += '<option value="Sharjah Port Authority">Sharjah Port Authority</option>';
-            Operator_options_str  += '<option value="Sharjah Ports Authority / Gulftainer">Sharjah Ports Authority / Gulftainer</option>';
-            Operator_options_str  += '<option value="Sohar Industrial Port Company">Sohar Industrial Port Company</option>';
-            Operator_options_str  += '<option value="Various private/logistics operators">Various private/logistics operators</option>';
-            sel_Operator.innerHTML = Operator_options_str;
-            div_Operator.appendChild(sel_Operator);
-            var lab_Operator = document.createElement('div');
-            lab_Operator.innerHTML = 'Operator';
-            lab_Operator.className = 'filterlabel';
-            div_Operator.appendChild(lab_Operator);
-            var reset_Operator = document.createElement('div');
-            reset_Operator.innerHTML = 'clear filter';
-            reset_Operator.className = 'filterlabel';
-            reset_Operator.onclick = function() {
-                var options = document.getElementById("sel_Operator").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_Operator.appendChild(reset_Operator);
-        </script>
+        </script>        
     </body>
 </html>
